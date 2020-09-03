@@ -14,7 +14,7 @@ app.post('/', (req, res) => {
     if (req.files) {
         console.log(req.files)
     } else {
-        console.log("No files")
+        console.log(req.files)
     }
 })
 
