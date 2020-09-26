@@ -32,7 +32,7 @@ app.post('/', (_req, _res) => {
         let fileExtention = mime.extension(file.theFile.mimetype)
 
         if(file.theFile.size < 25000000 && !(fileExtention == false)) {
-            let fileName = generateP() + "." + fileExtention
+            let fileName = file.theFile.md5 + "." + fileExtention
             let filepath = uploaddir + "/" + fileName
             fs.writeFile(filepath, filedata, function (err) {
                 if (err) {
