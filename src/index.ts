@@ -18,6 +18,10 @@ app.get('/', (_req: any, res: any) => {
     res.sendFile(clientdir + '/index.html')
 })
 
+app.get('/image/*', (_req, _res) => {
+    _res.sendFile(getFile(_req.url.substring(7)))
+})
+
 app.post('/', (_req, _res) => {
     if (_req.files) {
         let file: FileArray = _req.files
@@ -28,7 +32,9 @@ app.post('/', (_req, _res) => {
         let fileExtention = mime.extension(file.theFile.mimetype)
 
         if(file.theFile.size < 25000000 && !(fileExtention == false)) {
-            fs.writeFile(uploaddir + "/" + generateP() + "." + fileExtention, filedata, function (err) {
+            let fileName = generateP() + "." + fileExtention
+            let filepath = uploaddir + "/" + fileName
+            fs.writeFile(filepath, filedata, function (err) {
                 if (err) {
                     return console.log(err)
                 }
@@ -36,7 +42,7 @@ app.post('/', (_req, _res) => {
 
                 _res.header('Content-Type','application/json');
 
-                _res.send("{ \"upload\": \"successful\", \"link\" }")
+                _res.send(`{ \"upload\": \"successful\", \"link\": \"/image/${fileName}\"}`)
             })
         } else {
             _res.send("{ \"upload\": \"failed\" }")
@@ -60,4 +66,8 @@ function generateP() {
     }
 
     return pass;
-} 
+}
+
+function getFile(fileName: String) {
+    return uploaddir +  "/" + fileName
+}
