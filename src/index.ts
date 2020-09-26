@@ -27,7 +27,7 @@ app.post('/', (_req, _res) => {
 
         let fileExtention = mime.extension(file.theFile.mimetype)
 
-        if(file.theFile.size < 25000000) {
+        if(file.theFile.size < 25000000 && !(fileExtention == false)) {
             fs.writeFile(uploaddir + "/" + generateP() + "." + fileExtention, filedata, function (err) {
                 if (err) {
                     return console.log(err)
@@ -36,7 +36,7 @@ app.post('/', (_req, _res) => {
 
                 _res.header('Content-Type','application/json');
 
-                _res.send("{ \"upload\": \"successful\" }")
+                _res.send("{ \"upload\": \"successful\", \"link\" }")
             })
         } else {
             _res.send("{ \"upload\": \"failed\" }")
