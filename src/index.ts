@@ -41,6 +41,8 @@ app.post('/', (_req, _res) => {
                 console.log("Saved file")
 
                 _res.header('Content-Type','application/json');
+                _res.header("Access-Control-Allow-Headers", "*")
+                _res.header("Access-Control-Allow-Origin", "*")
 
                 _res.send(`{ \"upload\": \"successful\", \"link\": \"/image/${fileName}\"}`)
             })
