@@ -48,7 +48,7 @@ app.post("/", (_req, _res) => {
       let fileName = file.theFile.md5 + "." + fileExtention;
       let filepath = uploaddir + "/" + fileName;
 
-      let params = { Bucket: "markussim-testing", Key: fileName, Body: filedata };
+      let params = { Bucket: "markussim-production", Key: fileName, Body: filedata };
 
       s3.putObject(params, function (err: any, data: any) {
         if (err) {
@@ -85,7 +85,7 @@ function generateP() {
 
 async function getFile(fileName: any) {
   var getParams: any = {
-    Bucket: "markussim-testing", //replace example bucket with your s3 bucket name
+    Bucket: "markussim-production", //replace example bucket with your s3 bucket name
     Key: fileName, // replace file location with your s3 file location
   };
 
