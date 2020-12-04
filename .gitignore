@@ -106,3 +106,6 @@ dist
 # Upload folder
 upload/*
 !upload/.gitkeep
+
+# Credentials
+credentials.json
