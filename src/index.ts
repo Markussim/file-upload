@@ -8,6 +8,8 @@ const port = 5000
 const clientdir: string = __dirname.substr(0, __dirname.length - 4) + "/client"
 const uploaddir: string = __dirname.substr(0, __dirname.length - 4) + "/upload"
 
+let filedata: Buffer;
+
 app.use(upload())
 
 app.use(bodyParser.urlencoded({
@@ -26,7 +28,7 @@ app.post('/', (_req, _res) => {
     if (_req.files) {
         let file: FileArray = _req.files
         let filename = file.theFile.name
-        let filedata: Buffer = file.theFile.data
+        filedata = file.theFile.data
         console.log(filename)
 
         let fileExtention = mime.extension(file.theFile.mimetype)
